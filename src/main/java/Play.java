@@ -41,19 +41,19 @@ public class Play {
 
     public static void consumerGet() {
         Properties props = new Properties();
-        props.setProperty("bootstrap.servers", "192.168.16.21:58424");
-        props.setProperty("group.id", "test");
+        props.setProperty("bootstrap.servers", "192.168.16.20:9092");
+        props.setProperty("group.id", "2");
         props.setProperty("enable.auto.commit", "true");
         props.setProperty("auto.commit.interval.ms", "1000");
         props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Arrays.asList("test", "topic"));
+        consumer.subscribe(Arrays.asList("dbserver1.inventory.customers"));
 
         String receiveString = "";
         while (true) {
-            if(receiveString.equals("exit"))
-                break;
+//            if(receiveString.equals("exit"))
+//                break;
 
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
             for (ConsumerRecord<String, String> record : records) {
